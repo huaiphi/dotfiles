@@ -1,0 +1,22 @@
+[music]
+command=~/.config/i3blocks/scripts/spotify.sh
+min_width=10
+interval=1
+
+[memory]
+command=free -h | awk 'match($0, /^Mem/){print $3 " / " $2}'
+interval=1
+
+[disk]
+command=df -h | grep /dev/sdb7 | awk '{print $4}' | sed 's/G/GiB/'
+interval=60
+
+[cpu]
+command=~/.config/i3blocks/scripts/cpu_usage.sh
+min_width=10
+interval=1
+
+[date]
+command=date +'%Y-%m-%d(%a) %H:%M'
+interval=1
+

@@ -1,0 +1,27 @@
+import = [
+  "~/.config/alacritty/themes/themes/onedark.toml"
+]
+
+[shell]
+  program = "/usr/bin/fish"
+  args = ["-l", "-c", "tmux a -t sky || tmux new -s sky" ]
+
+[selection]
+  save_to_clipboard = true
+
+[window]
+  padding = { x = 5, y = 5 }
+  class = { instance =  "Alacritty", general = "Alacritty" }
+  opacity = 1
+
+[font]
+  normal = { family = "NotoSansM Nerd Font Mono", style = "Regular" }
+  size = 14
+
+[keyboard]
+bindings = [
+  { key = "p", mode = "vi", action = "Paste" },
+  { key = 12, mods = "Control", action = "DecreaseFontSize" },
+  { key = 13, mods = "Control", action = "IncreaseFontSize" },
+]
+ 
