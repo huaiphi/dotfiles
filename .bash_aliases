@@ -1,4 +1,11 @@
-# alias for ls
+if [ -x "$(command -v nvim)" ]; then
+    export EDITOR=nvim
+else
+    export EDITOR=vi
+fi
+
+alias v=$EDITOR
+
 if [ -x "$(command -v exa)" ]; then
     alias l='exa'
     alias ll='exa -l'
@@ -9,6 +16,3 @@ else
     alias la='ls -lA'
 fi
 
-if [ -x "$(command -v chromium)" ]; then
-    alias chromincognito="chromium --incognito > /dev/null 2>&1 &"
-fi
