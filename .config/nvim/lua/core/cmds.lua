@@ -76,8 +76,6 @@ end, {
 	end,
 })
 
--- auto commands --
-
 autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("text_yank_post", { clear = true }),
 	pattern = "*",

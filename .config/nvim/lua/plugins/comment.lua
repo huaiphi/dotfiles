@@ -5,7 +5,6 @@ return {
         { "gcc", mode = "n" },
         { "gc",  mode = "v" },
     },
-    config = function()
-        require("Comment").setup()
-    end
+    opts = {},
+    config = true
 }

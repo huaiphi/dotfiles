@@ -5,7 +5,6 @@ return {
     },
     version = "*",
     event = "VeryLazy",
-    config = function()
-        require("nvim-surround").setup({})
-    end,
+    opts = {},
+    config = true
 }

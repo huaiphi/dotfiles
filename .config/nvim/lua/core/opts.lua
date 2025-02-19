@@ -1,16 +1,8 @@
 local opt = vim.opt
-local cmd = vim.cmd
 
-cmd("set nofsync")
-cmd("language en_US")
-
-opt.listchars="eol:↵,trail:~,tab:>-,nbsp:␣"
+vim.cmd("set nofsync")
 
 opt.wildignorecase = true
-
-opt.langmenu = "en_US"
-
--- opt.guicursor = "n-v-c-i:block"
 
 opt.hidden = true
 opt.autowrite = true

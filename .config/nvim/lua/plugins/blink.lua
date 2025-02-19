@@ -3,13 +3,24 @@ return {
         "saghen/blink.cmp",
         dependencies = { "L3MON4D3/LuaSnip", version = "v2.*" },
         version = "*",
+        lazy = true,
+        event = "BufReadPost",
         opts = {
-            signature = { enabled = true },
+            signature = {
+                enabled = true,
+                trigger = {
+                    show_on_insert = true,
+                },
+                -- window = {
+                --     show_documentation = true,
+                -- }
+            },
             keymap = {
                 preset = "default",
-                ["<C-space>"] = {
+                ["<Tab>"] = {
                     function(cmp) cmp.show({}) end,
                 },
+                ["<C-space>"] = {}
             },
             appearance = {
                 use_nvim_cmp_as_default = true,
@@ -31,6 +42,17 @@ return {
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
             },
+            completion = {
+                menu = {
+                    draw = {
+                        columns = { { 'kind' }, { 'label', 'label_description', gap = 1 } }
+                    }
+                },
+                -- documentation = {
+                --     auto_show = true,
+                --     auto_show_delay_ms = 0,
+                -- },
+            }
         },
         opts_extend = { "sources.default" },
     },

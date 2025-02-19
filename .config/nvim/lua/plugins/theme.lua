@@ -1,17 +1,11 @@
 return {
-	"ellisonleao/gruvbox.nvim",
-	priority = 1000,
-	config = function()
-	    require("gruvbox").setup({
-	        bold = false,
-	        italic = {
-	            strings = false,
-	            emphasis = false,
-	            comments = false,
-	            operators = false,
-	            folds = false,
-	        },
-	    })
-	    vim.cmd("colorscheme gruvbox")
-	end
+    "wtfox/jellybeans.nvim",
+    priority = 1000,
+    config = function()
+        require("jellybeans").setup({
+            italics = false,
+            flat_ui = false,
+        })
+        vim.cmd.colorscheme("jellybeans")
+    end,
 }

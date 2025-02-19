@@ -1,8 +1,7 @@
 return {
     "stevearc/oil.nvim",
     config = function()
-        local oil = require("oil")
+        require("oil").setup({})
         vim.keymap.set("n", "-", "<CMD>Oil<CR>")
-        oil.setup({})
     end
 }
