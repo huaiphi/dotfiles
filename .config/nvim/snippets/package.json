@@ -1,0 +1,10 @@
+{
+  "contributes": {
+    "snippets": [
+      {
+        "language": ["javascriptreact", "typescriptreact"],
+        "path": "./tsx.json"
+      }
+    ]
+  }
+}
