@@ -11,9 +11,6 @@ return {
                 trigger = {
                     show_on_insert = true,
                 },
-                -- window = {
-                --     show_documentation = true,
-                -- }
             },
             keymap = {
                 preset = "default",
@@ -48,10 +45,10 @@ return {
                         columns = { { 'kind' }, { 'label', 'label_description', gap = 1 } }
                     }
                 },
-                -- documentation = {
-                --     auto_show = true,
-                --     auto_show_delay_ms = 0,
-                -- },
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 500,
+                },
             }
         },
         opts_extend = { "sources.default" },
