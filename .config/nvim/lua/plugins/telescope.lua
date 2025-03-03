@@ -7,14 +7,28 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-ui-select.nvim"
         },
-        lazy = false,
-        keys = {
-            { mode = "n", "<leader>ff" },
-            { mode = "n", "<leader>fg" },
-            { mode = "n", "<leader>fb" },
-            { mode = "n", "<leader>fs" },
-            { mode = "n", "<leader>xq" }
-        },
+        lazy = true,
+        init = function()
+            require("telescope").load_extension("ui-select")
+        end,
+        keys = function()
+            local builtin = require("telescope.builtin")
+            return {
+                { "<leader>ff", builtin.find_files },
+                { "<leader>fd", function()
+                    builtin.find_files({
+                        hidden = true,
+                        no_ignore = true,
+                    })
+                end },
+                { "<leader>fg", builtin.live_grep },
+                { "<leader>fb", builtin.buffers },
+                { "<leader>fs", builtin.lsp_document_symbols },
+                { "<leader>fw", builtin.grep_string },
+                { "<leader>fo", builtin.oldfiles },
+                { "<leader>ft", builtin.diagnostics },
+            }
+        end,
         config = function()
             local builtin_actions = require("telescope.actions")
             require("telescope").setup({
@@ -46,21 +60,6 @@ return {
                     },
                 },
             })
-            require("telescope").load_extension("ui-select")
-            local builtin = require("telescope.builtin")
-            vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-            vim.keymap.set("n", "<leader>fd", function()
-                builtin.find_files({
-                    hidden = true,
-                    no_ignore = true,
-                })
-            end, {})
-            vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-            vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-            vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, {})
-            vim.keymap.set("n", "<leader>fw", builtin.grep_string, {})
-            vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
-            vim.keymap.set("n", "<leader>ft", builtin.diagnostics, {})
         end,
     },
 }

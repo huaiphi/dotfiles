@@ -14,9 +14,7 @@ return {
             },
             keymap = {
                 preset = "default",
-                ["<Tab>"] = {
-                    function(cmp) cmp.show({}) end,
-                },
+                ["<Tab>"] = { "show", "show_documentation", "hide_documentation" },
                 ["<C-space>"] = {}
             },
             appearance = {
@@ -45,11 +43,7 @@ return {
                         columns = { { 'kind' }, { 'label', 'label_description', gap = 1 } }
                     }
                 },
-                documentation = {
-                    auto_show = true,
-                    auto_show_delay_ms = 500,
-                },
-            }
+            },
         },
         opts_extend = { "sources.default" },
     },
