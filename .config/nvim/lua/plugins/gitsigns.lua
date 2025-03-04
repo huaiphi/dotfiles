@@ -15,7 +15,6 @@ return {
             { "<leader>hp", gs.preview_hunk },
             { "<leader>hb", function() gs.blame_line({ full = true }) end },
             { "<leader>tB", gs.toggle_current_line_blame },
-            { "<leader>hd", gs.diffthis },
         }
     end,
     config = true
