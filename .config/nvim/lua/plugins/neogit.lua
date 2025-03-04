@@ -5,5 +5,7 @@ return {
         "sindrets/diffview.nvim",
         "nvim-telescope/telescope.nvim",
     },
-    config = true,
+    config = function()
+        vim.api.nvim_create_user_command("Ng", "Neogit kind=floating", {})
+    end
 }

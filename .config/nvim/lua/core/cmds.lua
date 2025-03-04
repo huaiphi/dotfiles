@@ -1,8 +1,7 @@
-local cmd = vim.api.nvim_create_user_command
+local user_cmd = vim.api.nvim_create_user_command
 local autocmd = vim.api.nvim_create_autocmd
 
-cmd("Ng", "Neogit", {})
-cmd("CopyBufferPath", "let @+ = expand('%:p')", {})
+user_cmd("CopyBufferPath", "let @+ = expand('%:p')", {})
 
 autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("text_yank_post", { clear = true }),
