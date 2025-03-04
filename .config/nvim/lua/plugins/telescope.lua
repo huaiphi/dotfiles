@@ -11,6 +11,13 @@ return {
         init = function()
             require("telescope").load_extension("ui-select")
         end,
+        opts = {
+            extensions = {
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown()
+                }
+            },
+        },
         keys = function()
             local builtin = require("telescope.builtin")
             return {
@@ -27,39 +34,9 @@ return {
                 { "<leader>fw", builtin.grep_string },
                 { "<leader>fo", builtin.oldfiles },
                 { "<leader>ft", builtin.diagnostics },
+                { "<leader>gb", builtin.git_branches },
             }
         end,
-        config = function()
-            local builtin_actions = require("telescope.actions")
-            require("telescope").setup({
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown()
-                    }
-                },
-                -- Default mapping
-                defaults = {
-                    vimgrep_arguments = {
-                        "rg",
-                        "--hidden",
-                        "--color=never",
-                        "--no-heading",
-                        "--with-filename",
-                        "--line-number",
-                        "--column",
-                        "--smart-case",
-                    },
-                    mappings = {
-                        -- insert mode
-                        i = {
-                            -- ["<C-j>"] = builtin_actions.select_default,
-                            ["<C-o>"] = builtin_actions.select_horizontal,
-                        },
-                        -- normal mode
-                        n = {},
-                    },
-                },
-            })
-        end,
+        config = true,
     },
 }
