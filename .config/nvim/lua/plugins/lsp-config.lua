@@ -13,10 +13,10 @@ return {
                 "pyright",
                 "rust_analyzer",
                 "ts_ls",
+                "biome",
                 "lua_ls",
                 "jdtls",
                 "gopls",
-                "zls",
             },
         },
         config = true
@@ -147,9 +147,6 @@ return {
                     config.capabilities
                 )
                 lspconfig[server].setup(config)
-                if server == "zls" then
-                    vim.g.zig_fmt_autosave = false
-                end
             end
         end,
     },
