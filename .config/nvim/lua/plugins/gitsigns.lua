@@ -1,8 +1,6 @@
 return {
     "lewis6991/gitsigns.nvim",
     opts = {},
-    lazy = true,
-    event = "VeryLazy",
     keys = function()
         local gs = require("gitsigns")
         return {

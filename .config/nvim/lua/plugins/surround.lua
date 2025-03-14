@@ -4,7 +4,8 @@ return {
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
     version = "*",
-    event = "VeryLazy",
+    lazy = true,
+    event = "BufReadPost",
     opts = {},
     config = true
 }

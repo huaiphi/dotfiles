@@ -39,14 +39,11 @@ return {
                 lua_ls = {},
                 jdtls = {},
                 gopls = {},
-                zls = {},
             },
         },
         config = function(_, opts)
             local lspconfig = require("lspconfig")
 
-            -- from
-            -- "https://github.com/neovim/nvim-lspconfig#suggested-configuration"
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
                 callback = function(ev)

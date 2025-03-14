@@ -1,0 +1,26 @@
+{
+  "ivt": {
+    "body": [
+      "import { vi, describe, it, expect } from \"vitest\""
+    ],
+    "prefix": "ivt"
+  },
+  "it": {
+    "body": [
+      "import { describe, it, expect } from \"vitest\""
+    ],
+    "prefix": "it"
+  },
+  "ts": {
+    "body": [
+      "describe(\"$1\", () => {})"
+    ],
+    "prefix": "ts"
+  },
+  "tc": {
+    "body": [
+      "it(\"$1\", () => {})"
+    ],
+    "prefix": "tc"
+  }
+}
