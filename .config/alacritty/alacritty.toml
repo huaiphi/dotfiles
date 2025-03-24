@@ -5,7 +5,7 @@ import = [
 
 [terminal.shell]
   program = "/usr/bin/bash"
-  args = ["-l", "-c", "tmux a -t sky || tmux new -s sky" ]
+  args = ["-l", "-c", "tmux a || tmux new" ]
 
 [selection]
   save_to_clipboard = true
