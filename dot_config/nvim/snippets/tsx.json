@@ -1,0 +1,20 @@
+{
+  "rc": {
+    "body": [
+      "const $1 = () => {}",
+      "",
+      "export default $1"
+    ],
+    "prefix": "rc"
+  },
+  "rcp": {
+    "body": [
+      "interface $1Props {}",
+      "",
+      "const $1 = async ({}: $1Props) => {}",
+      "",
+      "export default $1"
+    ],
+    "prefix": "rcp"
+  }
+}

@@ -1,0 +1,38 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+export PS1="[\u@\h \W]$ "
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+if [ -d "$HOME/.nimble/bin" ]; then
+    PATH="$HOME/.nimble/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/share/nvim/mason/bin" ]; then
+    PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+fi
+
+if [[ "$-" =~ "i" ]]; then
+    bind -s 'set completion-ignore-case on'
+fi
+

@@ -1,0 +1,16 @@
+[general]
+import = [
+  "~/.config/alacritty/jellybeans.toml"
+]
+
+[terminal.shell]
+  program = "/usr/bin/bash"
+  args = ["-l", "-c", "tmux a || tmux new" ]
+
+[selection]
+  save_to_clipboard = true
+
+[font]
+  normal = { family = "Noto Sans Mono", style = "Regular" }
+  size = 14
+
