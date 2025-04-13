@@ -6,7 +6,7 @@
         "path": "./tsx.json"
       },
       {
-        "language": ["javascript", "typescript"],
+        "language": ["javascript", "typescript", "javascriptreact", "typescriptreact"],
         "path": "./ts.json"
       }
     ]
