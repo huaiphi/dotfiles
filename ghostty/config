@@ -1,0 +1,12 @@
+font-family = "Noto Sans Mono"
+font-size = 18
+theme = jellybeans
+background = "#151515"
+foreground = "#e8e8d3"
+command = "/bin/zsh -l -i -c 'tmux a || tmux new'"
+quit-after-last-window-closed = true
+shell-integration = none
+cursor-style-blink = false
+cursor-color = cell-foreground
+cursor-text = cell-background
+confirm-close-surface = false

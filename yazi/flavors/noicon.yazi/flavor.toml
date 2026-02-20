@@ -1,0 +1,26 @@
+[mgr]
+cwd = { fg = "white" }
+
+[indicator]
+preview = { reversed = true }
+padding = { open = "█", close = "█" }
+
+[status]
+sep_left = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+perm_type = { fg = "reset" }
+perm_read = { fg = "reset" }
+perm_write = { fg = "reset" }
+perm_exec = { fg = "reset" }
+
+[tabs]
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+[icon]
+globs = []
+dirs = []
+files = []
+exts = []
+conds = []
