@@ -385,9 +385,7 @@ require("lazy").setup({
             { "<leader>ff", mode = "n" },
             { "<leader>fg", mode = "n" }
         },
-        opts = {
-            fzf_bin = "sk",
-        },
+        opts = {},
         config = function(_, opts)
             local fzf = require("fzf-lua")
             fzf.setup(opts)
