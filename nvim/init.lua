@@ -8,7 +8,6 @@ g.maplocalleader = ","
 g.t_co = 256
 g.background = "dark"
 g.loaded_netrw = 1
-
 map.set("i", "<C-c>", "<ESC>", { silent = true, noremap = true })
 
 opt.splitright = true;
@@ -100,10 +99,6 @@ require("lazy").setup({
             require("jellybeans").setup({
                 italics = false,
                 flat_ui = false,
-                on_colors = function(c)
-                    c.background = "#151515"
-                    c.foreground = "#e8e8d3"
-                end
             })
             vim.cmd("colorscheme jellybeans")
         end
@@ -170,7 +165,7 @@ require("lazy").setup({
                 "rust_analyzer",
                 "lua_ls",
                 "gopls",
-                "pyright",
+                "ty",
                 "ruff",
             },
         },
@@ -180,7 +175,7 @@ require("lazy").setup({
         "neovim/nvim-lspconfig",
         config = function()
             vim.lsp.config("*", {})
-            vim.lsp.set_log_level("off")
+            -- vim.lsp.set_log_level("off")
             vim.lsp.config.clangd = {
                 cmd = {
                     "clangd",
@@ -383,7 +378,11 @@ require("lazy").setup({
         lazy = true,
         keys = {
             { "<leader>ff", mode = "n" },
-            { "<leader>fg", mode = "n" }
+            { "<leader>fg", mode = "n" },
+            { "<leader>fb", mode = "n" },
+            { "<leader>ft", mode = "n" },
+            { "<leader>fT", mode = "n" },
+            { "<leader>fs", mode = "n" },
         },
         opts = {},
         config = function(_, opts)
@@ -391,26 +390,19 @@ require("lazy").setup({
             fzf.setup(opts)
             vim.keymap.set("n", "<leader>ff", function() fzf.files() end)
             vim.keymap.set("n", "<leader>fg", function() fzf.live_grep() end)
+            vim.keymap.set("n", "<leader>fb", function() fzf.buffers() end)
+            vim.keymap.set("n", "<leader>fT", function() fzf.diagnostics_document() end)
+            vim.keymap.set("n", "<leader>ft", function() fzf.diagnostics_workspace() end)
+            vim.keymap.set("n", "<leader>fs", function() fzf.lsp_document_symbols() end)
         end,
     },
     {
-        "mikavilpas/yazi.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            { "nvim-lua/plenary.nvim", lazy = true },
-        },
+        'stevearc/oil.nvim',
+        lazy = false,
+        opts = {},
         keys = {
-            {
-                "-",
-                mode = { "n", "v" },
-                "<cmd>Yazi<cr>",
-            },
+            { "-", "<cmd>Oil<cr>", mode = "n" }
         },
-        opts = {
-            open_for_directories = true,
-        },
-        init = function()
-            vim.g.loaded_netrwPlugin = 1
-        end,
+        config = true,
     },
 })
