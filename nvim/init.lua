@@ -1,14 +1,12 @@
 local opt = vim.opt
 local g = vim.g
-local autocmd = vim.api.nvim_create_autocmd
-local map = vim.keymap
 
 g.mapleader = ","
 g.maplocalleader = ","
 g.t_co = 256
 g.background = "dark"
 g.loaded_netrw = 1
-map.set("i", "<C-c>", "<ESC>", { silent = true, noremap = true })
+vim.keymap.set("i", "<C-c>", "<ESC>", { silent = true, noremap = true })
 
 opt.splitright = true;
 opt.splitbelow = true;
@@ -28,7 +26,6 @@ opt.clipboard = "unnamedplus"
 opt.swapfile = false
 opt.syntax = "on"
 opt.termguicolors = true
-
 opt.ignorecase = true
 opt.hlsearch = true
 
@@ -38,7 +35,7 @@ opt.softtabstop = 4
 opt.tabstop = 4
 opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block"
 
-autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("text_yank_post", { clear = true }),
     pattern = "*",
     callback = function()
@@ -48,7 +45,7 @@ autocmd("TextYankPost", {
 
 vim.api.nvim_create_augroup("tab", { clear = true })
 
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
     group = "tab",
     pattern = "make",
     callback = function()
@@ -58,7 +55,7 @@ autocmd("FileType", {
     end,
 })
 
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
     group = "tab",
     pattern = {
         "html",
@@ -85,7 +82,7 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        "--branch=stable",
         lazypath,
     })
 end
@@ -113,16 +110,17 @@ require("lazy").setup({
                 section_separators = { left = "", right = "" },
             },
             sections = {
-                lualine_c = { { 'filename', path = 1 } },
+                lualine_c = { { 'filename', path = 1 } }
             },
         },
-        config = true
+        config = true,
     },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        opts = {
-            ensure_installed = {
+        lazy = false,
+        config = function()
+            require("nvim-treesitter").install({
                 "comment",
                 "lua",
                 "c",
@@ -132,22 +130,23 @@ require("lazy").setup({
                 "go",
                 "vimdoc",
                 "json",
-                "javascript",
-                "typescript",
                 "rust",
                 "python",
                 "vimdoc",
                 "meson",
                 "typst",
-            },
-            auto_install = true,
-            endwise = { enable = true },
-            highlight = { enable = true },
-            indent = { enable = true },
-            autotag = { enable = true },
-        },
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+                "zig",
+            })
+            vim.api.nvim_create_autocmd("FileType", { -- enable treesitter highlighting and indents
+                callback = function(args)
+                    local filetype = args.match
+                    local lang = vim.treesitter.language.get_lang(filetype)
+                    if vim.treesitter.language.add(lang) then
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        vim.treesitter.start()
+                    end
+                end
+            })
         end
     },
     {
@@ -167,6 +166,7 @@ require("lazy").setup({
                 "gopls",
                 "ty",
                 "ruff",
+                "zls",
             },
         },
         config = true
@@ -339,26 +339,6 @@ require("lazy").setup({
         config = true,
     },
     {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        dependencies = { "nvim-lua/plenary.nvim", lazy = true },
-        lazy = true,
-        keys = {
-            { "<leader>a", mode = "n" },
-            { "<leader>e", mode = "n" },
-            { "<C-p>",     mode = "n" },
-            { "<C-n>",     mode = "n" }
-        },
-        config = function()
-            local harpoon = require("harpoon")
-            harpoon:setup()
-            vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-            vim.keymap.set("n", "<leader>e", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-            vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
-            vim.keymap.set("n", "<C-n>", function() harpoon:list():next() end)
-        end
-    },
-    {
         "NeogitOrg/neogit",
         lazy = true,
         dependencies = {
@@ -371,6 +351,70 @@ require("lazy").setup({
     },
     {
         "lewis6991/gitsigns.nvim",
+        opts = {
+            on_attach = function()
+                local gitsigns = require("gitsigns")
+                local function map(mode, l, r, opts)
+                    opts = opts or {}
+                    opts.buffer = bufnr
+                    vim.keymap.set(mode, l, r, opts)
+                end
+
+                -- Navigation
+                map('n', ']c', function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ ']c', bang = true })
+                    else
+                        gitsigns.nav_hunk('next')
+                    end
+                end)
+
+                map('n', '[c', function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ '[c', bang = true })
+                    else
+                        gitsigns.nav_hunk('prev')
+                    end
+                end)
+
+                -- Actions
+                map('n', '<leader>hs', gitsigns.stage_hunk)
+                map('n', '<leader>hr', gitsigns.reset_hunk)
+
+                map('v', '<leader>hs', function()
+                    gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end)
+
+                map('v', '<leader>hr', function()
+                    gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end)
+
+                map('n', '<leader>hS', gitsigns.stage_buffer)
+                map('n', '<leader>hR', gitsigns.reset_buffer)
+                map('n', '<leader>hp', gitsigns.preview_hunk)
+                map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+                map('n', '<leader>hb', function()
+                    gitsigns.blame_line({ full = true })
+                end)
+
+                map('n', '<leader>hd', gitsigns.diffthis)
+
+                map('n', '<leader>hD', function()
+                    gitsigns.diffthis('~')
+                end)
+
+                map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+                map('n', '<leader>hq', gitsigns.setqflist)
+
+                -- Toggles
+                map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+                map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+                -- Text object
+                map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
+            end
+        },
         config = true,
     },
     {
@@ -384,7 +428,7 @@ require("lazy").setup({
             { "<leader>fT", mode = "n" },
             { "<leader>fs", mode = "n" },
         },
-        opts = {},
+        opts = { "skim" },
         config = function(_, opts)
             local fzf = require("fzf-lua")
             fzf.setup(opts)
